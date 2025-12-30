@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VYBE STUDIOS</title>
+  <meta name="description" content="VYBE STUDIOS — Minecraft editing studio. Portfolio, pricing, and contact." />
+  <style>
+    :root{
+      --bg:#050607;
+      --panel:#0b0d10;
+      --panel2:#0e1116;
+      --text:#f4f5f7;
+      --muted:#a9b0bd;
+      --muted2:#7d8697;
+      --stroke:rgba(255,255,255,.10);
+      --stroke2:rgba(255,255,255,.06);
+      --glow:rgba(255,255,255,.08);
+      --shadow: 0 22px 70px rgba(0,0,0,.55);
+      --r:18px;
+      --r2:26px;
+      --max:1120px;
+      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{background:var(--bg);}
+    body{
+      margin:0;
+      font-family:var(--font);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 22% 0%, rgba(255,255,255,.08), transparent 55%),
+        radial-gradient(900px 500px at 85% 20%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(900px 500px at 55% 95%, rgba(255,255,255,.05), transparent 55%),
+        var(--bg);
+      overflow-x:hidden;
+    }
+
+    a{color:inherit; text-decoration:none}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 22px;}
+
+    /* --- Top bar --- */
+    header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:saturate(140%) blur(14px);
+      background:linear-gradient(to bottom, rgba(5,6,7,.85), rgba(5,6,7,.55));
+      border-bottom:1px solid var(--stroke2);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:72px;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:180px;
+    }
+    .logo{
+      width:34px; height:34px;
+      border-radius:12px;
+      background:
+        radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.95), rgba(255,255,255,.15) 60%, transparent 62%),
+        radial-gradient(18px 18px at 68% 68%, rgba(255,255,255,.18), transparent 65%),
+        rgba(255,255,255,.04);
+      border:1px solid var(--stroke);
+      box-shadow: 0 14px 40px rgba(0,0,0,.6);
+      position:relative;
+      overflow:hidden;
+    }
+    .logo:after{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius:12px;
+      background:linear-gradient(135deg, rgba(255,255,255,.10), transparent 55%, rgba(255,255,255,.06));
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    .brandText{
+      display:flex;
+      flex-direction:column;
+      line-height:1.05;
+    }
+    .brandText strong{
+      font-weight:680;
+      letter-spacing:.2px;
+      font-size:14.5px;
+    }
+    .brandText span{
+      font-size:12px;
+      color:var(--muted2);
+      font-family:var(--mono);
+    }
+
+    .tabs{
+      display:flex;
+      gap:6px;
+      align-items:center;
+      justify-content:center;
+      flex:1;
+    }
+
+    .tab{
+      font-size:13px;
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid transparent;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease;
+      user-select:none;
+    }
+    .tab:hover{
+      background:rgba(255,255,255,.05);
+      border-color:rgba(255,255,255,.10);
+      color:var(--text);
+      transform: translateY(-1px);
+      box-shadow: 0 14px 40px rgba(0,0,0,.35);
+    }
+    .tab[aria-current="page"]{
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.12);
+      color:var(--text);
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      min-width:180px;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:13px;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+      cursor:pointer;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .btn:hover{
+      background:rgba(255,255,255,.07);
+      border-color:rgba(255,255,255,.18);
+      transform: translateY(-1px);
+      box-shadow: 0 16px 46px rgba(0,0,0,.45);
+    }
+    .btn:active{transform: translateY(1px); box-shadow: 0 8px 24px rgba(0,0,0,.35);}
+
+    .btn.primary{
+      background:rgba(255,255,255,.08);
+      color:var(--text);
+      border-color:rgba(255,255,255,.20);
+      font-weight:650;
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+    }
+    .btn.primary:hover{background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.26)}
+
+    .menuBtn{display:none}
+
+    /* --- Hero --- */
+    main{padding:56px 0 96px; background:transparent;}
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:28px;
+      align-items:center;
+      padding-top:26px;
+    }
+
+    .kicker{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      color:var(--muted);
+      font-size:13px;
+      letter-spacing:.2px;
+    }
+    .pill{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.03);
+      color:rgba(255,255,255,.82);
+    }
+
+    h1{
+      margin:14px 0 12px;
+      font-size: clamp(40px, 4.6vw, 68px);
+      line-height:1.03;
+      letter-spacing:-.02em;
+      font-weight:760;
+    }
+
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.65;
+      max-width:54ch;
+    }
+
+    .ctaRow{display:flex; gap:10px; align-items:center; margin-top:22px; flex-wrap:wrap}
+
+    .ghostLink{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.02);
+      color:rgba(255,255,255,.86);
+      font-size:13px;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    .ghostLink:hover{background:rgba(255,255,255,.05); border-color:rgba(255,255,255,.14)}
+
+    .arrow{opacity:.8}
+
+    /* --- Showcase card (Linear-ish) --- */
+    .shot{
+      border-radius:var(--r2);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+      min-height: 410px;
+    }
+
+    .shot:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(500px 260px at 18% 10%, rgba(255,255,255,.14), transparent 55%),
+        radial-gradient(520px 320px at 80% 30%, rgba(255,255,255,.09), transparent 60%),
+        radial-gradient(500px 380px at 50% 120%, rgba(255,255,255,.08), transparent 58%);
+      pointer-events:none;
+    }
+
+    .shotTop{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.20);
+    }
+
+    .dots{display:flex; gap:7px; align-items:center}
+    .dot{width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.16)}
+
+    .shotTag{
+      font-family:var(--mono);
+      font-size:12px;
+      color:rgba(255,255,255,.72);
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      border-radius:999px;
+      padding:6px 10px;
+    }
+
+    .shotBody{padding:18px 18px 16px}
+
+    .miniTitle{
+      font-size:18px;
+      font-weight:700;
+      margin:0 0 8px;
+      letter-spacing:-.01em;
+    }
+
+    .miniSub{
+      margin:0;
+      color:var(--muted);
+      font-size:13.5px;
+      line-height:1.6;
+      max-width:60ch;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    .card{
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      padding:12px 12px;
+    }
+    .card b{display:block; font-size:13px; margin-bottom:6px}
+    .card p{margin:0; color:var(--muted); font-size:12.5px; line-height:1.55}
+
+    /* --- Sections --- */
+    section{margin-top:64px}
+
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:18px;
+    }
+
+    h2{
+      margin:0;
+      font-size:22px;
+      letter-spacing:-.01em;
+      font-weight:750;
+    }
+
+    .hint{margin:0; color:var(--muted2); font-size:13px; line-height:1.5}
+
+    .tiles{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+
+    .tile{
+      border-radius:var(--r);
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      padding:16px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .tile:before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius:var(--r);
+      background:linear-gradient(135deg, rgba(255,255,255,.08), transparent 40%, rgba(255,255,255,.05));
+      opacity:.7;
+      pointer-events:none;
+    }
+
+    .tile h3{margin:0 0 6px; font-size:14px; font-weight:740}
+    .tile p{margin:0; color:var(--muted); font-size:13px; line-height:1.6}
+
+    /* --- Portfolio list --- */
+    .portfolio{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:10px;
+    }
+
+    .work{
+      border-radius:var(--r);
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      padding:14px 16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
+    }
+    .work:hover{
+      background:rgba(255,255,255,.05);
+      border-color:rgba(255,255,255,.14);
+      transform: translateY(-1px);
+      box-shadow: 0 18px 60px rgba(0,0,0,.45);
+    }
+
+    .workLeft{display:flex; flex-direction:column; gap:4px}
+    .workTitle{font-weight:720; letter-spacing:-.01em}
+    .workMeta{color:var(--muted); font-size:12.5px}
+
+    .badge{
+      font-family:var(--mono);
+      font-size:12px;
+      color:rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      border-radius:999px;
+      padding:6px 10px;
+      white-space:nowrap;
+    }
+
+    /* --- Pricing --- */
+    .pricing{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+
+    .plan{
+      border-radius:var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .plan.featured{
+      border-color:rgba(255,255,255,.20);
+      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+    }
+
+    .plan h3{margin:0 0 8px; font-size:15px; font-weight:760}
+    .price{font-size:28px; font-weight:820; letter-spacing:-.02em}
+    .price span{font-size:13px; color:var(--muted); font-weight:600; margin-left:6px}
+
+    ul{
+      margin:12px 0 0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    li{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.5;
+    }
+
+    .check{
+      width:18px; height:18px;
+      border-radius:6px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.05);
+      display:grid;
+      place-items:center;
+      color:rgba(255,255,255,.9);
+      font-size:12px;
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+
+    /* --- Contact --- */
+    .contact{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:12px;
+      align-items:stretch;
+    }
+
+    .form{
+      border-radius:var(--r2);
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.03);
+      padding:18px;
+    }
+
+    .field{display:flex; flex-direction:column; gap:8px; margin-bottom:12px}
+    label{font-size:12px; color:var(--muted2)}
+
+    input, textarea{
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(0,0,0,.35);
+      color:var(--text);
+      padding:12px 12px;
+      font-size:13px;
+      outline:none;
+      transition:border-color .15s ease, background .15s ease;
+    }
+    input:focus, textarea:focus{border-color:rgba(255,255,255,.22); background:rgba(0,0,0,.45)}
+    textarea{min-height:120px; resize:vertical}
+
+    .side{
+      border-radius:var(--r2);
+      border:1px solid rgba(255,255,255,.10);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      padding:18px;
+    }
+
+    .side h3{margin:0 0 8px; font-size:15px; font-weight:760}
+    .side p{margin:0; color:var(--muted); font-size:13px; line-height:1.65}
+
+    .links{display:flex; flex-direction:column; gap:10px; margin-top:12px}
+    .linkRow{display:flex; align-items:center; justify-content:space-between; gap:10px}
+
+    footer{
+      margin-top:74px;
+      padding:26px 0 30px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted2);
+      font-size:12.5px;
+    }
+
+    /* --- Mobile --- */
+    @media (max-width: 980px){
+      .hero{grid-template-columns:1fr;}
+      .shot{min-height:360px}
+      .tiles{grid-template-columns:1fr;}
+      .pricing{grid-template-columns:1fr;}
+      .contact{grid-template-columns:1fr;}
+      .actions{min-width:auto}
+      .brand{min-width:auto}
+      .tabs{display:none}
+      .menuBtn{display:inline-flex}
+    }
+
+    /* Mobile drawer */
+    .drawer{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.6);
+      display:none;
+      z-index:80;
+    }
+    .drawer[open]{display:block}
+
+    .sheet{
+      position:absolute;
+      right:16px;
+      top:84px;
+      width:min(420px, calc(100% - 32px));
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(10,12,15,.96);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .sheetHead{
+      padding:14px 14px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .sheetHead b{font-size:13px}
+    .sheetNav{display:flex; flex-direction:column; padding:10px}
+    .sheetNav a{padding:12px 12px; border-radius:14px; color:var(--muted); border:1px solid transparent}
+    .sheetNav a:hover{background:rgba(255,255,255,.04); border-color:rgba(255,255,255,.10); color:var(--text)}
+
+    /* Smooth anchor offset for sticky header */
+    .anchor{scroll-margin-top:92px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <a class="brand" href="#home" data-nav>
+          <div class="logo" aria-hidden="true"></div>
+          <div class="brandText">
+            <strong id="siteName">VYBE STUDIOS</strong>
+            <span id="siteTag">vrtx-ready • mc edits</span>
+          </div>
+        </a>
+
+        <nav class="tabs" aria-label="Primary">
+          <a class="tab" href="#home" data-tab>Home</a>
+          <a class="tab" href="#portfolio" data-tab>Portfolio</a>
+          <a class="tab" href="#pricing" data-tab>Pricing</a>
+          <a class="tab" href="#contact" data-tab>Contact</a>
+        </nav>
+
+        <div class="actions">
+          <a class="btn" href="#portfolio" data-nav>View work</a>
+          <a class="btn primary" href="#contact" data-nav>Book a slot</a>
+          <button class="btn menuBtn" id="menuBtn" aria-haspopup="dialog" aria-controls="drawer" aria-expanded="false">Menu</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile drawer -->
+  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="sheet">
+      <div class="sheetHead">
+        <b>Navigate</b>
+        <button class="btn" id="closeDrawer">Close</button>
+      </div>
+      <div class="sheetNav">
+        <a href="#home" data-nav>Home</a>
+        <a href="#portfolio" data-nav>Portfolio</a>
+        <a href="#pricing" data-nav>Pricing</a>
+        <a href="#contact" data-nav>Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="wrap">
+      <section class="hero anchor" id="home">
+        <div>
+          <div class="kicker">
+            <span class="pill">Black/White • Linear‑style</span>
+            <span>Bold edits. Clean motion. Minecraft‑ready.</span>
+          </div>
+
+          <h1>
+            High‑impact Minecraft edits
+            built with studio‑level polish.
+          </h1>
+
+          <p class="sub">
+            <span id="nameInline">VYBE STUDIOS</span> is a small, fast editing studio for creators.
+            We deliver snappy pacing, clean typography, and VFX‑style moments — without overdoing it.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="#portfolio" data-nav>See portfolio</a>
+            <a class="btn" href="#pricing" data-nav>Pricing</a>
+            <a class="ghostLink" href="#contact" data-nav>
+              Quick contact <span class="arrow">→</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="shot" aria-label="Showcase">
+          <div class="shotTop">
+            <div class="dots" aria-hidden="true">
+              <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+            </div>
+            <div class="shotTag" id="shotTag">VYBE / pipeline</div>
+          </div>
+          <div class="shotBody">
+            <p class="miniTitle">A clean workflow for creators</p>
+            <p class="miniSub">
+              Replace the name later in one spot. Drop in your best clips.
+              Keep everything monochrome with rounded boxes — like Linear.
+            </p>
+
+            <div class="grid">
+              <div class="card">
+                <b>Motion pacing</b>
+                <p>Fast cuts, smooth camera moves, clean zooms — no messy spam effects.</p>
+              </div>
+              <div class="card">
+                <b>Typography</b>
+                <p>Bold titles, minimal labels, tight spacing. Reads clean on mobile.</p>
+              </div>
+              <div class="card">
+                <b>VFX moments</b>
+                <p>Impact frames, glows, shakes, velocity blur — used sparingly, hit harder.</p>
+              </div>
+              <div class="card">
+                <b>Turnaround</b>
+                <p>1–3 days typical depending on length. Rush available.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="anchor" id="portfolio">
+        <div class="sectionHead">
+          <div>
+            <h2>Portfolio</h2>
+            <p class="hint">Recent SMP promos. Click to watch.</p>
+          </div>
+          <span class="badge">SMP promos</span>
+        </div>
+
+        <div class="portfolio">
+          <a class="work" href="https://www.youtube.com/watch?v=D_qr4wZ954A" target="_blank" rel="noopener" title="Open on YouTube">
+            <div class="workLeft">
+              <div class="workTitle">SMP Promo — Authority</div>
+              <div class="workMeta">Pacing • impact frames • clean typography</div>
+            </div>
+            <span class="badge">YouTube ↗</span>
+          </a>
+
+          <a class="work" href="https://www.youtube.com/watch?v=A1Zxi0OPlh0" target="_blank" rel="noopener" title="Open on YouTube">
+            <div class="workLeft">
+              <div class="workTitle">SMP Promo — Inverse</div>
+              <div class="workMeta">Beat sync • motion accents • flow</div>
+            </div>
+            <span class="badge">YouTube ↗</span>
+          </a>
+
+          <a class="work" href="https://www.youtube.com/watch?v=MV2X4TlGI9A" target="_blank" rel="noopener" title="Open on YouTube">
+            <div class="workLeft">
+              <div class="workTitle">SMP Promo — Star</div>
+              <div class="workMeta">Cinematic pacing • bold moments</div>
+            </div>
+            <span class="badge">YouTube ↗</span>
+          </a>
+
+          <div class="work" aria-disabled="true" style="opacity:.7; cursor:default; background:rgba(255,255,255,.02)">
+            <div class="workLeft">
+              <div class="workTitle">Coming soon…</div>
+              <div class="workMeta" style="color:var(--muted2)">this could be you?</div>
+            </div>
+            <span class="badge">next slot</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="anchor" id="pricing">
+        <div class="sectionHead">
+          <div>
+            <h2>Pricing</h2>
+            <p class="hint">We only do SMP promos right now. Pricing is per second of final video.</p>
+          </div>
+          <span class="badge">per‑second</span>
+        </div>
+
+        <div class="pricing">
+          <div class="plan">
+            <h3>Simple Promo</h3>
+            <div class="price">$0.80<span>/ second</span></div>
+            <ul>
+              <li><span class="check">✓</span> Clean cuts + pacing (no overkill)</li>
+              <li><span class="check">✓</span> Basic captions + minimal motion</li>
+              <li><span class="check">✓</span> Color/contrast polish</li>
+              <li><span class="check">✓</span> 1 revision</li>
+            </ul>
+            <div style="height:14px"></div>
+            <a class="btn" href="#contact" data-nav>Book Simple</a>
+          </div>
+
+          <div class="plan featured">
+            <h3>Mid Range Promo</h3>
+            <div class="price">$0.95<span>/ second</span></div>
+            <ul>
+              <li><span class="check">✓</span> Strong beat sync + smoother motion</li>
+              <li><span class="check">✓</span> Bold title moments (Linear‑style)</li>
+              <li><span class="check">✓</span> Impact frames + subtle shakes</li>
+              <li><span class="check">✓</span> 2 revisions + priority queue</li>
+            </ul>
+            <div style="height:14px"></div>
+            <a class="btn primary" href="#contact" data-nav>Book Mid Range</a>
+          </div>
+
+          <div class="plan">
+            <h3>High End Promo</h3>
+            <div class="price">$1.30<span>/ second</span></div>
+            <ul>
+              <li><span class="check">✓</span> High‑end pacing + cinematic flow</li>
+              <li><span class="check">✓</span> Advanced motion + transitions</li>
+              <li><span class="check">✓</span> VFX moments (sparks/glow/particles) used tastefully</li>
+              <li><span class="check">✓</span> 3 revisions + rush option</li>
+            </ul>
+            <div style="height:14px"></div>
+            <a class="btn" href="#contact" data-nav>Book High End</a>
+          </div>
+        </div>
+
+        <div style="height:12px"></div>
+        <p class="hint" style="margin:0">
+          Example: a 30s promo = $24 (Simple) / $28.50 (Mid) / $39 (High End).
+        </p>
+      </section>
+
+      <section class="anchor" id="contact">
+        <div class="sectionHead">
+          <div>
+            <h2>Contact</h2>
+            <p class="hint">This form is front-end only. Connect it to Formspree/Netlify Forms later.</p>
+          </div>
+          <span class="badge">fast replies</span>
+        </div>
+
+        <div class="contact">
+          <form class="form" onsubmit="return fakeSubmit(event)">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" placeholder="Your name" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="type">What do you need?</label>
+              <input id="type" name="type" placeholder="Short / Longform / Montage / Trailer" />
+            </div>
+            <div class="field">
+              <label for="msg">Details</label>
+              <textarea id="msg" name="message" placeholder="Length, deadline, examples you like, link to clips..." required></textarea>
+            </div>
+            <button class="btn primary" type="submit">Send message</button>
+            <span id="formNote" style="margin-left:10px;color:var(--muted);font-size:12.5px"></span>
+          </form>
+
+          <aside class="side">
+            <h3>Quick info</h3>
+            <p>
+              Add your socials and booking links here.
+              Keep it clean and monochrome — it matches the Linear vibe.
+            </p>
+            <div class="links">
+              <div class="linkRow"><span class="badge">Discord</span><span style="color:var(--muted)">@yourhandle</span></div>
+              <div class="linkRow"><span class="badge">Email</span><span style="color:var(--muted)">contact@yourdomain.com</span></div>
+              <div class="linkRow"><span class="badge">Turnaround</span><span style="color:var(--muted)">1–3 days</span></div>
+            </div>
+            <div style="height:14px"></div>
+            <a class="btn" href="#portfolio" data-nav>Back to portfolio</a>
+          </aside>
+        </div>
+      </section>
+
+      <footer>
+        <div class="wrap" style="padding:0">
+          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap">
+            <span>© <span id="year"></span> <span id="nameFooter">VYBE STUDIOS</span>. All rights reserved.</span>
+            <span style="font-family:var(--mono)">monochrome • rounded • bold</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </main>
+
+  <script>
+    /**
+     * Edit just this object later to change branding.
+     * (So you can rename VYBE STUDIOS to VRTX Studio or anything.)
+     */
+    const BRAND = {
+      name: "VYBE STUDIOS",
+      tag: "vrtx-ready • mc edits",
+      heroTag: "VYBE / pipeline"
+    };
+
+    function applyBrand(){
+      document.title = BRAND.name;
+      document.getElementById("siteName").textContent = BRAND.name;
+      document.getElementById("nameInline").textContent = BRAND.name;
+      document.getElementById("nameFooter").textContent = BRAND.name;
+      document.getElementById("siteTag").textContent = BRAND.tag;
+      document.getElementById("shotTag").textContent = BRAND.heroTag;
+    }
+
+    applyBrand();
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Smooth nav + active tab
+    const tabs = Array.from(document.querySelectorAll("[data-tab]"));
+    const navLinks = Array.from(document.querySelectorAll("[data-nav]"));
+
+    function setActive(hash){
+      const target = (hash || "#home").toLowerCase();
+      tabs.forEach(a => a.setAttribute("aria-current", a.getAttribute("href").toLowerCase() === target ? "page" : "false"));
+    }
+
+    function smoothToHash(hash){
+      const el = document.querySelector(hash);
+      if(!el) return;
+      el.scrollIntoView({behavior:"smooth", block:"start"});
+      history.replaceState(null, "", hash);
+      setActive(hash);
+    }
+
+    function onNavClick(e){
+      const a = e.currentTarget;
+      const href = a.getAttribute("href");
+      if(!href || !href.startsWith("#")) return;
+      e.preventDefault();
+      closeDrawer();
+      smoothToHash(href);
+    }
+
+    [...tabs, ...navLinks].forEach(a => a.addEventListener("click", onNavClick));
+
+    // Observe sections for active state
+    const sections = ["#home", "#portfolio", "#pricing", "#contact"].map(id => document.querySelector(id));
+    const io = new IntersectionObserver((entries)=>{
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a,b)=> b.intersectionRatio - a.intersectionRatio)[0];
+      if(visible) setActive("#" + visible.target.id);
+    }, {root:null, threshold:[0.35, 0.55, 0.75]});
+
+    sections.forEach(s => s && io.observe(s));
+    setActive(location.hash);
+
+    // Drawer
+    const drawer = document.getElementById("drawer");
+    const menuBtn = document.getElementById("menuBtn");
+    const closeBtn = document.getElementById("closeDrawer");
+
+    function openDrawer(){
+      drawer.setAttribute("open", "");
+      menuBtn.setAttribute("aria-expanded", "true");
+    }
+    function closeDrawer(){
+      drawer.removeAttribute("open");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+
+    menuBtn?.addEventListener("click", ()=> drawer.hasAttribute("open") ? closeDrawer() : openDrawer());
+    closeBtn?.addEventListener("click", closeDrawer);
+    drawer?.addEventListener("click", (e)=>{ if(e.target === drawer) closeDrawer(); });
+    window.addEventListener("keydown", (e)=>{ if(e.key === "Escape") closeDrawer(); });
+
+    // Fake submit
+    function fakeSubmit(e){
+      e.preventDefault();
+      const note = document.getElementById("formNote");
+      note.textContent = "Sent (demo). Hook this to a real form service later.";
+      setTimeout(()=> note.textContent = "", 3800);
+      e.target.reset();
+      return false;
+    }
+    window.fakeSubmit = fakeSubmit;
+  </script>
+</body>
+</html>
